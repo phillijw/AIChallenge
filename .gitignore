@@ -3,3 +3,5 @@ Thumbs.db
 .project
 *.class
 bin/*
+src/MyBot.jar
+tools/*
