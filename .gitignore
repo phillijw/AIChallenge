@@ -1,1 +1,5 @@
 Thumbs.db
+.classpath
+.project
+*.class
+bin/*
