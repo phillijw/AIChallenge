@@ -2,10 +2,8 @@
  * Represents an order to be issued.
  */
 public class Order {
-    private final int row;
-    
-    private final int col;
-    
+    private final int x;
+    private final int y;
     private final char direction;
     
     /**
@@ -14,9 +12,9 @@ public class Order {
      * @param tile map tile with my ant
      * @param direction direction in which to move my ant
      */
-    public Order(Tile tile, Aim direction) {
-        row = tile.getRow();
-        col = tile.getCol();
+    public Order(Ant ant, Direction direction) {
+        x = ant.getX();
+        y = ant.getY();
         this.direction = direction.getSymbol();
     }
     
@@ -25,6 +23,6 @@ public class Order {
      */
     @Override
     public String toString() {
-        return "o " + row + " " + col + " " + direction;
+        return "o " + y + " " + x + " " + direction;
     }
 }

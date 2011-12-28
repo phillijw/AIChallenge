@@ -38,4 +38,12 @@ public enum Ilk {
     public boolean isUnoccupied() {
         return this == LAND || this == DEAD;
     }
+    
+    public boolean isWater() { return this == WATER; }
+    public boolean isFood() { return this == FOOD; }
+    public boolean isLand() { return this == LAND; }
+    public boolean isDead() { return this == DEAD; }
+    public boolean isMyAnt() { return this == MY_ANT; }
+    public boolean isEnemy() { return this == ENEMY_ANT; }
+  
 }
