@@ -56,4 +56,28 @@ public class Map {
 		return closest;
 	}
 	
+	public void print() {
+		String item = "?";
+		System.out.println();
+		System.out.println();
+		for (int x=0; x < width; x++) {
+			for (int y=0; y < height; y++) {
+				if (getTile(x, y).hasAnt())
+					item = "a";
+				else if (getTile(x, y).hasFood())
+					item = "*";
+				else if (getTile(x, y).isWater())
+					item = "%";
+				else if (getTile(x, y).isPassable())
+					item = ".";
+				
+				System.out.print(item);
+				
+				if (y == height-1)
+					System.out.println();
+			}
+		}
+		System.out.println();
+		System.out.println();
+	}
 }

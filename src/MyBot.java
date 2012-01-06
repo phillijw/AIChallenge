@@ -49,26 +49,61 @@ public class MyBot extends Bot {
 				Ant a = t.getAnt();
 			
 				if (a.getRole() == AntRole.SCAVENGER) {
-					MapTile food = currentTurnMap.getNearestFood(a.getX(), a.getY());
+					//MapTile food = currentTurnMap.getNearestFood(a.getX(), a.getY());
 					
-					if (a.getX() == Integer.MAX_VALUE && a.getY() == Integer.MAX_VALUE) {
+					MapTile north = a.getTile().getNorth();
+					MapTile east = a.getTile().getEast();
+					MapTile south = a.getTile().getSouth();
+					MapTile west = a.getTile().getWest();
+					
+					//This if-block sucks. Instead of going through each one, calculate the best choice
+					//and do that instead. Then there won't be a built in priority depending on which
+					//if block is at the top. Also, it might actually work correctly.
+//					if (a.getX() == Integer.MAX_VALUE && a.getY() == Integer.MAX_VALUE) {
+//						a.moveRandom();
+//					}
+//					else if (a.getX() < food.getX() && eastNeighbor != null && eastNeighbor.isPassable() && !eastNeighbor.isOccupied()) { 
+//						a.move(Direction.EAST);
+//					}
+//					else if (a.getX() > food.getX() && westNeighbor != null && westNeighbor.isPassable() && !westNeighbor.isOccupied()) {
+//						a.move(Direction.WEST);
+//					}
+//					else if (a.getY() < food.getY() && southNeighbor != null && southNeighbor.isPassable() && !southNeighbor.isOccupied()) {
+//						a.move(Direction.SOUTH);
+//					}
+//					else if (a.getY() > food.getY() && northNeighbor != null && northNeighbor.isPassable() && !northNeighbor.isOccupied()) {
+//						a.move(Direction.NORTH);
+//					}
+//					else {
+//						a.moveRandom();
+//					}
+					
+					int nearest = Integer.MAX_VALUE;
+					Direction bestMove = null;
+					
+					if (north != null && north.getStepsFromFood() < nearest) {
+						nearest = north.getStepsFromFood();
+						bestMove = Direction.NORTH;
+					}
+					if (east != null && east.getStepsFromFood() < nearest) {
+						nearest = east.getStepsFromFood();
+						bestMove = Direction.EAST;
+					}
+					if (south != null && south.getStepsFromFood() < nearest) {
+						nearest = south.getStepsFromFood();
+						bestMove = Direction.SOUTH;
+					}
+					if (west != null && west.getStepsFromFood() < nearest) {
+						nearest = west.getStepsFromFood();
+						bestMove = Direction.WEST;
+					}
+					
+					if (bestMove == null)
 						a.moveRandom();
-					}
-					else if (a.getX() < food.getX()) {
-						a.move(Direction.EAST);
-					}
-					else if (a.getX() > food.getX()) {
-						a.move(Direction.WEST);
-					}
-					else if (a.getY() < food.getY()) {
-						a.move(Direction.SOUTH);
-					}
-					else if (a.getY() > food.getY()) {
-						a.move(Direction.NORTH);
-					}
-					else {
-						a.moveRandom();
-					}
+					else
+						a.move(bestMove);
+				
+					
 				}
 			}
 		}
@@ -79,7 +114,7 @@ public class MyBot extends Bot {
 		Ants state = getAnts();
 
 		// Prepare maps
-		currentTurnMap = new Map(this, state.getRows(), state.getCols());
+		currentTurnMap = new Map(this, state.getCols(), state.getRows());
 		//nextTurnMap = new Map(state.getRows(), state.getCols());
 
 		for (int x = 0; x < currentTurnMap.getWidth(); x++) {
@@ -139,6 +174,18 @@ public class MyBot extends Bot {
 				}
 			}
 		}
+		
+		// Populate water		
+		for (int y=0; y < currentTurnMap.getHeight(); y++) {
+			for (int x=0; x < currentTurnMap.getWidth(); x++) {
+				if (state.getIlk(new Tile(x, y)).isWater()) {
+					currentTurnMap.getTile(x, y).setIsWater(true);
+				}
+			}
+		}
+		
+		//Print the map
+		currentTurnMap.print();
 
 	}
 

@@ -12,7 +12,7 @@ public class Tile implements Comparable<Tile> {
      * @param row row index
      * @param col column index
      */
-    public Tile(int row, int col) {
+    public Tile(int col, int row) {
         this.row = row;
         this.col = col;
     }

@@ -73,7 +73,7 @@ public class Ants {
             for (int col = -mx; col <= mx; ++col) {
                 int d = row * row + col * col;
                 if (d <= viewRadius2) {
-                	//visionOffsets[row][col] = true;
+                	//visionOffsets[col][row] = true;
                 }
             }
         }
@@ -471,7 +471,7 @@ public class Ants {
      * @param ilk ilk to be updated
      * @param tile location on the game map to be updated
      */
-    public void update(int y, int x, Ilk ilk) {
+    public void update(int x, int y, Ilk ilk) {
         map[x][y] = ilk;
         switch (ilk) {
             case FOOD:

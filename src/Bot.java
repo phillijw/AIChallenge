@@ -51,7 +51,7 @@ public abstract class Bot extends AbstractSystemInputParser {
      */
     @Override
     public void addWater(int row, int col) {
-        ants.update(row, col, Ilk.WATER);
+        ants.update(col, row, Ilk.WATER);
     }
     
     /**
@@ -59,7 +59,7 @@ public abstract class Bot extends AbstractSystemInputParser {
      */
     @Override
     public void addAnt(int row, int col, int owner) {
-        ants.update(row, col, owner > 0 ? Ilk.ENEMY_ANT : Ilk.MY_ANT);
+        ants.update(col, row, owner > 0 ? Ilk.ENEMY_ANT : Ilk.MY_ANT);
     }
     
     /**
@@ -67,7 +67,7 @@ public abstract class Bot extends AbstractSystemInputParser {
      */
     @Override
     public void addFood(int row, int col) {
-        ants.update(row, col, Ilk.FOOD);
+        ants.update(col, row, Ilk.FOOD);
     }
     
     /**
@@ -75,7 +75,7 @@ public abstract class Bot extends AbstractSystemInputParser {
      */
     @Override
     public void removeAnt(int row, int col, int owner) {
-        ants.update(row, col, Ilk.DEAD);
+        ants.update(col, row, Ilk.DEAD);
     }
     
     /**
